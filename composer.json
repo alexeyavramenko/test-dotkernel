@@ -1,0 +1,127 @@
+{
+    "name": "dotkernel/api",
+    "type": "project",
+    "description": "DotKernel API",
+    "license": "MIT",
+    "homepage": "https://www.dotkernel.org",
+    "support": {
+        "docs": "https://docs.dotkernel.org/api-documentation/",
+        "issues": "https://github.com/dotkernel/api/issues",
+        "source": "https://github.com/dotkernel/api",
+        "rss": "https://github.com/dotkernel/api/releases.atom"
+    },
+    "keywords": [
+        "api",
+        "REST",
+        "REST API",
+        "mezzio",
+        "laminas"
+    ],
+    "authors": [
+        {
+            "name": "DotKernel Team",
+            "email": "team@dotkernel.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "dotkernel/*": true,
+            "laminas/laminas-component-installer": true,
+            "composer/package-versions-deprecated": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "extra": {
+        "laminas": {
+            "component-whitelist": [
+                "laminas/laminas-httphandlerrunner"
+            ]
+        },
+        "mezzio": {
+            "component-whitelist": [
+                "mezzio/mezzio",
+                "mezzio/mezzio-helpers",
+                "mezzio/mezzio-router",
+                "mezzio/mezzio-fastroute"
+            ]
+        }
+    },
+    "require": {
+        "php": "~8.2.0 || ~8.3.0",
+        "ext-gd": "*",
+        "ext-json": "*",
+        "dotkernel/dot-cache": "^4.0",
+        "dotkernel/dot-cli": "^3.5.0",
+        "dotkernel/dot-data-fixtures": "^1.2.2",
+        "dotkernel/dot-dependency-injection": "^1.0",
+        "dotkernel/dot-errorhandler": "^4.0.0",
+        "dotkernel/dot-mail": "^5.1.0",
+        "dotkernel/dot-response-header": "^3.2.3",
+        "laminas/laminas-component-installer": "^3.4.0",
+        "laminas/laminas-config-aggregator": "^1.14.0",
+        "laminas/laminas-hydrator": "^4.15.0",
+        "laminas/laminas-inputfilter": "^2.29.0",
+        "laminas/laminas-stdlib": "^3.19.0",
+        "mezzio/mezzio": "^3.19.0",
+        "mezzio/mezzio-authentication-oauth2": "^2.8.0",
+        "mezzio/mezzio-authorization-acl": "^1.10.0",
+        "mezzio/mezzio-authorization-rbac": "^1.7.0",
+        "mezzio/mezzio-cors": "^1.11.1",
+        "mezzio/mezzio-fastroute": "^3.11.0",
+        "mezzio/mezzio-hal": "^2.9",
+        "mezzio/mezzio-problem-details": "^1.13.1",
+        "mezzio/mezzio-twigrenderer": "^2.15.0",
+        "ramsey/uuid-doctrine": "^2.1.0",
+        "roave/psr-container-doctrine": "^5.2.1",
+        "symfony/filesystem": "^7.0.3",
+        "zircote/swagger-php": "^4.10"
+    },
+    "require-dev": {
+        "laminas/laminas-coding-standard": "^3.0",
+        "laminas/laminas-development-mode": "^3.12.0",
+        "mezzio/mezzio-tooling": "^2.9.0",
+        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan-doctrine": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpunit/phpunit": "^10.5.10",
+        "roave/security-advisories": "dev-latest",
+        "symfony/var-dumper": "^7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Api\\Admin\\": "src/Admin/src/",
+            "Api\\App\\": "src/App/src/",
+            "Api\\Project\\": "src/Project/src/",
+            "Api\\User\\": "src/User/src/",
+            "Api\\Fixtures\\": "data/doctrine/fixtures/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ApiTest\\Functional\\": "test/Functional/",
+            "ApiTest\\Unit\\": "test/Unit/"
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "php bin/composer-post-install-script.php"
+        ],
+        "development-disable": "laminas-development-mode disable",
+        "development-enable": "laminas-development-mode enable",
+        "development-status": "laminas-development-mode status",
+        "mezzio": "mezzio --ansi",
+        "check": [
+            "@cs-check",
+            "@test",
+            "@static-analysis"
+        ],
+        "clear-config-cache": "php bin/clear-config-cache.php",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "serve": "php -S 0.0.0.0:8080 -t public/",
+        "static-analysis": "phpstan analyse --memory-limit 1G",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    }
+}
